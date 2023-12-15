@@ -21,13 +21,9 @@ with open(input_csv_path, 'r', newline='') as input_file:
         # Write the header
         csv_writer.writeheader()
 
-        # Write the filtered columns directly without using rows_to_keep
+        # Write the filtered columns with "Greece" values converted to integers
         for row in csv_reader:
-            filtered_row = {header: row[header] for header in target_column_headers}
+            # Check if the value is non-empty before converting to int
+            greece_value = row['Greece']
+            filtered_row = {header: int(float(greece_value)) if header == 'Greece' and greece_value else row[header] for header in target_column_headers}
             csv_writer.writerow(filtered_row)
-
-
-
-
-
-#The overall time complexity of the code is O(n)
